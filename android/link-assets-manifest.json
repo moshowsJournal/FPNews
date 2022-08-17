@@ -1,0 +1,49 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Spartan-Black.ttf",
+      "sha1": "974f7919d77b68690eebea371c1a0c77979f2b85"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-Bold.ttf",
+      "sha1": "0f0dcdb9cf85f3cdc962b7e8cb3131718e0ade57"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-ExtraBold.ttf",
+      "sha1": "7c0a0dfe2925e078dc8b703802019832347de6fd"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-ExtraLight.ttf",
+      "sha1": "735cb8c6a92a43958ee98ff7340eb06d7ec13165"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-Light.ttf",
+      "sha1": "3b982b8dd978e4f28f55f7970a81ca1f80307a1f"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-Medium.ttf",
+      "sha1": "b02ca359960f621fd8fe051e923699fc25bb44f8"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-Regular.ttf",
+      "sha1": "ed6d6bdf136f0a398e2de726c7c6b4e7804f9d8c"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-SemiBold.ttf",
+      "sha1": "8d1816d5158621809b82774929091705232b3c70"
+    },
+    {
+      "path": "src/assets/fonts/Spartan-Thin.ttf",
+      "sha1": "2cf3522628426ca6d5e5dd6c387213a2b7c77d7a"
+    },
+    {
+      "path": "src/assets/fonts/Spartan.ttf",
+      "sha1": "ed6d6bdf136f0a398e2de726c7c6b4e7804f9d8c"
+    },
+    {
+      "path": "src/assets/fonts/Spartan_bold.ttf",
+      "sha1": "0f0dcdb9cf85f3cdc962b7e8cb3131718e0ade57"
+    }
+  ]
+}

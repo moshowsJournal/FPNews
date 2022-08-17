@@ -3,6 +3,9 @@ import { Text, View } from "react-native";
 import Font_Family from './fontFamily';
 import {Height,Width} from './dimensions'
 import AppColors from './colors';
+import TouchableWrapper from './TouchableWrapper';
+import { useNavigation } from '@react-navigation/native';
+import Ionicons from "react-native-vector-icons/Ionicons"
 
 interface ContainerProps {
   position? : string,
@@ -42,6 +45,8 @@ interface PTagInterface {
   children : React.ReactNode,
   marginTop? : number,
   marginBottom? : number,
+  lineHeight? : number,
+  marginLeft? : number
 }
 
 interface HTagInterface {
@@ -57,7 +62,9 @@ interface HTagInterface {
   marginRight? : number
   marginTop? : number,
   marginBottom? : number,
-  numberOfLines? : number
+  numberOfLines? : number,
+  lineHeight? : number,
+  
 }
 
 export const Container = (props : ContainerProps) => (
@@ -112,6 +119,8 @@ export const Container = (props : ContainerProps) => (
           color : props.color || AppColors.black,
           marginTop : props?.marginTop ? Height(props?.marginTop) : null,
           marginBottom : props?.marginBottom ? Height(props?.marginBottom) : null,
+          lineHeight : props?.lineHeight ? Height(props.lineHeight) : Height(3),
+          marginLeft : props?.marginLeft ? Width(props?.marginLeft) : null
         },
         props.style
       ]}
@@ -135,6 +144,7 @@ export const Container = (props : ContainerProps) => (
           marginRight : props?.marginRight ? Width(props?.marginRight) : null,
           marginTop : props?.marginTop ? Height(props?.marginTop) : null,
           marginBottom : props?.marginBottom ? Height(props?.marginBottom) : null,
+          lineHeight : props?.lineHeight ? Height(props.lineHeight) : Height(3)
         },
         props.style
       ]}
@@ -142,3 +152,16 @@ export const Container = (props : ContainerProps) => (
       {props.children}
     </Text>
   )
+
+export const BackHandler = () => {
+  const navigation = useNavigation()
+  return(
+    <TouchableWrapper onPress={()=>navigation.goBack()} size={8}>
+        <Ionicons 
+            color={AppColors.black}
+            size={Width(7)}
+            name="arrow-back-outline"
+        />
+    </TouchableWrapper>
+  )
+}
