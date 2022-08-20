@@ -7,9 +7,16 @@ import { LogBox } from 'react-native';
 import CodePush from 'react-native-code-push';
 import FlashMessage from "react-native-flash-message";
 import firebaseConfig from './src/utils/firebase';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 
 const App = () => {
+  
   useEffect(()=>{
+    GoogleSignin.configure({
+      webClientId: '631795731887-qea5n2hakmkcovth546ga0ccaje5m1g7.apps.googleusercontent.com',
+      offlineAccess: true,
+    });
     firebaseConfig()
     LogBox.ignoreAllLogs()
   },[])

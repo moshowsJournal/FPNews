@@ -169,7 +169,7 @@ export default function Home({navigation} : HomeProps){
                                     }
     ]
     useEffect(()=>{
-        //getArticles()
+       // getArticles()
     },[])
 
     const ListEmptyComponent = () => {

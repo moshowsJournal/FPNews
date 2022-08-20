@@ -11,6 +11,7 @@ import { changeRoute } from '../store/routeReducer';
 import { getData } from './functions';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 interface DrawerBarProps{
     navigation : any
@@ -25,6 +26,7 @@ export default function DrawerBar({navigation} : DrawerBarProps){
         navigation.closeDrawer()
         await AsyncStorage.removeItem('@user')
         auth().signOut()
+        GoogleSignin.signOut()
         dispatch(changeRoute("Auth"))
     }
     const getUserData = async () => {

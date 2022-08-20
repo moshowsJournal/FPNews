@@ -55,7 +55,7 @@ export default function RegisterTwo({navigation,route} : RegisterTwoProps){
             setLoading(false)
             ToastSuccess("Your account has been created")
             await storeData("user",userData)
-            dispatch(changeRoute("main"))
+            dispatch(changeRoute("Main"))
        }catch(err : any){
             setLoading(false)
             if (err?.code === 'auth/email-already-in-use') {
@@ -65,7 +65,6 @@ export default function RegisterTwo({navigation,route} : RegisterTwoProps){
             if (err?.code === 'auth/invalid-email') {
                 return ToastError('That email address is invalid!');
             }
-            console.log("ERROR",err)
             ToastError("Something went wrong. Please retry")
        }
     }

@@ -17,6 +17,8 @@ import { changeRoute } from '../../../store/routeReducer'
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { storeData, ToastError, validateEmail } from '../../../utils/functions'
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 
 
 interface LoginProps{
@@ -35,26 +37,53 @@ export default function Login({navigation} : LoginProps){
     const registerNow = () => {
         navigation.navigate("Register")
     }
+    
+
+    const onGoogleButtonPress = async () => {
+        try{
+            const { idToken } = await GoogleSignin.signIn();
+           const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+            setLoading(true)
+            let res = await auth().signInWithCredential(googleCredential);
+            const userRef = await firestore().collection('Users').doc(res.user.uid).get()
+            if(!userRef._exists){
+                setLoading(false)
+                GoogleSignin.signOut()
+                return ToastError("Invalid login information provided.")
+            }
+            setLoading(false)
+            await storeData("user",userRef._data)
+            dispatch(changeRoute("Main"))
+        }catch(err : any){
+            if(JSON.stringify(err).includes('Sign in action cancelled')) return
+            setLoading(false)
+            GoogleSignin.signOut()
+            ToastError(JSON.stringify(err))
+        }
+    }
+
     const submitHanlder = async () => {
         try{
             Keyboard.dismiss()
             const required = ["email","password"]
             let msg = ""
             for(const req of required){
-                if(data[req].toString().trim() === "") msg = `Please provide your ${req.replace("_"," ")}`
-                break;
+                if(data[req].toString().trim() === ""){
+                    msg = `Please provide your ${req.replace("_"," ")}`
+                    break;
+                }
             }
             if(msg.trim() !== "") return ToastError(msg)
             if(!validateEmail(data.email.toString().trim())) return ToastError("Please provide a valid email address")
             setLoading(true)
             let res = await auth()
             .signInWithEmailAndPassword(data.email.toString().trim(), data.password)
-            const useRef = await firestore().collection('Users').doc(res.user.uid).get()
-            console.log("RESPONSE",useRef)
+            const userRef = await firestore().collection('Users').doc(res.user.uid).get()
             setLoading(false)
-            await storeData("user",useRef._data)
+            await storeData("user",userRef._data)
             dispatch(changeRoute("Main"))
         }catch(err){
+            console.log("ERROR",err)
             setLoading(false)
             ToastError("Invalid email address or password")
         }
@@ -98,7 +127,7 @@ export default function Login({navigation} : LoginProps){
                             <H1 fontSize={4} color={AppColors.red}>OR</H1>
                         <Container width={28} height={0.2} backgroundColor={AppColors.red} />
                     </Container>
-                    <TouchableWrapper onPress={()=>null} style={styles.social} isText>
+                    <TouchableWrapper onPress={onGoogleButtonPress} style={styles.social} isText>
                         <Container direction='row' verticalAlignment='center'
                             horizontalAlignment='center'
                         >

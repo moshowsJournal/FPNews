@@ -14,7 +14,11 @@ import { Width } from '../../../utils/dimensions'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import auth from '@react-native-firebase/auth';
-import { ToastError, ToastSuccess, validateEmail } from '../../../utils/functions'
+import { storeData, ToastError, ToastSuccess, validateEmail } from '../../../utils/functions'
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import firestore from '@react-native-firebase/firestore'
+import { useDispatch } from 'react-redux'
+import { changeRoute } from '../../../store/routeReducer'
 
 
 interface RegisterProps{
@@ -22,11 +26,55 @@ interface RegisterProps{
 }
 
 export default function Register({navigation} : RegisterProps){
+    const dispatch = useDispatch()
     const [data,setData] = React.useState({
         full_name : "",
         email_address : "",
         phone_number : ""
     });
+    const [loading,setLoading] = React.useState(false)
+
+    const onGoogleButtonPress = async () => {
+        try{
+            const { idToken } = await GoogleSignin.signIn();
+           const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+            setLoading(true)
+            let res = await auth().signInWithCredential(googleCredential);
+            const userRef = await firestore().collection('Users').doc(res.user.uid).get()
+            if(userRef._exists){
+                setLoading(false)
+                GoogleSignin.signOut()
+                return ToastError("That email address is already in use!")
+            }
+            const userData = {
+                id : res.user.uid,
+                email_address : res.user.email,
+                phone_number : res.user.phoneNumber,
+                username : res.user.email,
+                full_name : res.user.displayName
+            }
+            await firestore().collection('Users').doc(res.user.uid).set(userData)
+            setLoading(false)
+            ToastSuccess("Your account has been created")
+            setLoading(false)
+            await storeData("user",userData)
+            dispatch(changeRoute("Main"))
+        }catch(err : any){
+            console.log("ERROR",err)
+            if(JSON.stringify(err).includes('Sign in action cancelled')) return
+            setLoading(false)
+            GoogleSignin.signOut()
+            if (err?.code === 'auth/email-already-in-use') {
+                return ToastError('That email address is already in use!');
+            }
+        
+            if (err?.code === 'auth/invalid-email') {
+                return ToastError('That email address is invalid!');
+            }
+            ToastError(JSON.stringify(err))
+        }
+    }
+
     const submitHandler = async () => {
         Keyboard.dismiss()
         const required = ["full_name","email_address","phone_number"]
@@ -77,7 +125,7 @@ export default function Register({navigation} : RegisterProps){
                     <TouchableWrapper onPress={()=>navigation.goBack()} isText width={40} style={styles.forgot}>
                         <H1 color={AppColors.red} bold={600}>Go back to sign in?</H1>
                     </TouchableWrapper>
-                    <Button loading={false} text={"Register"} onPress={submitHandler}/>
+                    <Button loading={loading} text={"Register"} onPress={submitHandler}/>
                     <Container marginTop={4}>
                         <Container direction='row' verticalAlignment='center' horizontalAlignment='space-between'
                             width={70}
@@ -86,7 +134,7 @@ export default function Register({navigation} : RegisterProps){
                             <H1 fontSize={4} color={AppColors.red}>OR</H1>
                             <Container width={28} height={0.2} backgroundColor={AppColors.red} />
                         </Container>
-                        <TouchableWrapper onPress={()=>null} style={styles.social} isText>
+                        <TouchableWrapper onPress={onGoogleButtonPress} style={styles.social} isText>
                             <Container direction='row' verticalAlignment='center'
                                 horizontalAlignment='center'
                             >
