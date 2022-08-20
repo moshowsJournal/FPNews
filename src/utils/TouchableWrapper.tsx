@@ -12,11 +12,12 @@ interface TouchableProps {
     isText? : boolean,
     style? : any,
     rippleColor? : string
-
+    disabled? : boolean
 }
 
 export const TouchableWrapper = (props : TouchableProps) => (
     <TouchableRipple onPress={props.onPress}
+      disabled={props?.disabled}
       rippleColor={props.rippleColor || '#C0C0C0'}
       style={[
         props?.isText ? {

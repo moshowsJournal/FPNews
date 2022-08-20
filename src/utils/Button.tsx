@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import AppColors from './colors';
 import { H1 } from "./components";
 import { Height, Width } from './dimensions';
@@ -18,8 +18,10 @@ export default function Button({
     loading
 } : ButtonProps){
     return(
-        <TouchableWrapper onPress={onPress} isText style={styles.button} rippleColor={AppColors.white}>
-            <H1 color={AppColors.white} fontSize={5}>{text}</H1>
+        <TouchableWrapper disabled={loading} onPress={onPress} isText style={styles.button} rippleColor={AppColors.white}>
+            {!loading ? <H1 color={AppColors.white} fontSize={5}>{text}</H1> : 
+                <ActivityIndicator size={Width(7)} color={AppColors.white} />
+            }
         </TouchableWrapper>
     )
 }

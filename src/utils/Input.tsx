@@ -1,6 +1,6 @@
 import { DarkTheme } from "@react-navigation/native";
 import React from "react";
-import { TextInput } from "react-native-paper";
+import { TextInput,DefaultTheme } from "react-native-paper";
 import AppColors from "./colors";
 import { Height, Width } from "./dimensions";
 import Font_Family from "./fontFamily";
@@ -17,7 +17,9 @@ interface InputProps{
     label? : string,
     right? : React.ReactNode,
     keyboardType? : string,
-    secureTextEntry? : boolean
+    secureTextEntry? : boolean,
+    onChangeText : (text : string) => void,
+    value : string
 }
 
 const Input = (props : InputProps) => {
@@ -39,8 +41,8 @@ const Input = (props : InputProps) => {
             ]}
             theme={
                 {
-                    colors: {
-                        primary: '#2898A4'
+                    colors : {
+                        primary: AppColors.red
                     },
                     fonts: {
                       regular: {

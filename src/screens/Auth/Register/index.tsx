@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image } from 'react-native'
+import { Alert, Image, Keyboard } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import Button from '../../../utils/Button'
 import { BackHandler, Container, H1, P } from '../../../utils/components'
@@ -13,6 +13,8 @@ import { Width } from '../../../utils/dimensions'
 //import Icon from 'react-native-ionicons'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import auth from '@react-native-firebase/auth';
+import { ToastError, ToastSuccess, validateEmail } from '../../../utils/functions'
 
 
 interface RegisterProps{
@@ -20,8 +22,26 @@ interface RegisterProps{
 }
 
 export default function Register({navigation} : RegisterProps){
-    const submitHandler = () => {
-        navigation.navigate("RegisterTwo")
+    const [data,setData] = React.useState({
+        full_name : "",
+        email_address : "",
+        phone_number : ""
+    });
+    const submitHandler = async () => {
+        Keyboard.dismiss()
+        const required = ["full_name","email_address","phone_number"]
+        let msg = ""
+        let load = {}
+        for(const req of required){
+            if(data[req].toString().trim() === ""){
+                msg = `Please provide your ${req.replace("_"," ")}`
+                break;
+            }
+            load[req] = data[req].toString().trim()
+        }
+        if(msg.trim() !== "") return ToastError(msg)
+        if(!validateEmail(data.email_address.trim())) return ToastError("Please provide a valid email address")
+        navigation.navigate("RegisterTwo",load)
     }
     return(
         <ScreenWrapper>
@@ -35,16 +55,23 @@ export default function Register({navigation} : RegisterProps){
                         />
                     </Container>
                     <Container>
-                        <Input label='Full Name' placeholder='Enter Full Name'/>
+                        <Input label='Full Name' placeholder='Enter Full Name'
+                            onChangeText={(value : string)=>setData({...data, full_name : value})}
+                            value={data.full_name}
+                        />
                     </Container>
                     <Container>
                         <Input label='Email Address' placeholder='Enter Email Address'
                             keyboardType={"email-address"}
+                            onChangeText={(value : string)=>setData({...data, email_address : value})}
+                            value={data.email_address}
                         />
                     </Container>
                     <Container>
-                        <Input label='Phone Number' placeholder='+234000008900' 
-                            keyboardType={"number-pad"}
+                        <Input label='Phone Number' placeholder='+234000008900'
+                            keyboardType="number-pad"
+                            onChangeText={(value : string)=>setData({...data, phone_number : value})}
+                            value={data.phone_number}
                         />
                     </Container>
                     <TouchableWrapper onPress={()=>navigation.goBack()} isText width={40} style={styles.forgot}>

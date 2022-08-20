@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "631795731887",
+    "project_id": "fpnews-e245b",
+    "storage_bucket": "fpnews-e245b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631795731887:android:7ab7e250b271b9c421335a",
+        "android_client_info": {
+          "package_name": "com.fpnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631795731887-kn495mfif2sc080b57ggj50d39eo9nhu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fpnews",
+            "certificate_hash": "94ba45e0231dfc01d99757f73c67ad0ad145eb93"
+          }
+        },
+        {
+          "client_id": "631795731887-qea5n2hakmkcovth546ga0ccaje5m1g7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBStWxmoMWNfdSwi13m_0MJH0Yqv7-UCSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631795731887-qea5n2hakmkcovth546ga0ccaje5m1g7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

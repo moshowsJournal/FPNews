@@ -3,13 +3,16 @@ import { Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeRoute } from '../../../store/routeReducer'
 import { Container, H1, P } from '../../../utils/components'
+import { getData } from '../../../utils/functions'
 import Images from '../../../utils/images'
 import ScreenWrapper from '../../../utils/ScreenWrapper'
 import styles from './styles'
 
 export default function Splash(){
 const dispatch = useDispatch()
-    const navigationHandler = () => {
+    const navigationHandler = async () => {
+        let userDetails = await getData("user")
+        if(userDetails) return dispatch(changeRoute("Main"))
         dispatch(changeRoute("Auth"))
     }
     

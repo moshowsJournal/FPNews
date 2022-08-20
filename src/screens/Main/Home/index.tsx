@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, H1, P } from '../../../utils/components';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AppColors from '../../../utils/colors';
@@ -6,14 +6,27 @@ import { Width } from '../../../utils/dimensions';
 import TouchableWrapper from '../../../utils/TouchableWrapper';
 import ScreenWrapper from '../../../utils/ScreenWrapper';
 import { ScrollView } from 'react-native-gesture-handler';
-import { FlatList, ImageBackground } from 'react-native';
+import { ActivityIndicator, FlatList, ImageBackground } from 'react-native';
 import styles from './styles';
+import { getAPIs } from '../../../utils/api';
 
 interface HomeProps{
     navigation : any
 }
 export default function Home({navigation} : HomeProps){
     const tabs = ["Popular","All","Politics","Technology","Health","Science"]
+    const [loading,setLoading] = React.useState(false)
+    const [articles,setArticles] = React.useState([])
+    const getArticles = async () => {
+        try{
+            setLoading(true)
+            let res = await getAPIs()
+            setArticles(res.articles);
+            setLoading(false)
+        }catch(err){
+        }
+    }
+
     const data = [
         {
             "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
@@ -155,6 +168,10 @@ export default function Home({navigation} : HomeProps){
                                     "_id":"c32c16cdbfa7d797fdb73eefe0776796"
                                     }
     ]
+    useEffect(()=>{
+        //getArticles()
+    },[])
+
     const ListEmptyComponent = () => {
         return(
             <Container flex={1} horizontalAlignment='center' verticalAlignment='center'>
@@ -228,15 +245,21 @@ export default function Home({navigation} : HomeProps){
                     }
                 </ScrollView>
            </Container>
-           <Container flex={1} borderTopWidth={0.5} borderColor={AppColors.grayBorder} paddingTop={1}>
-            <FlatList 
-                    data={data}
-                    keyExtractor={(item,i)=>i.toString()}
-                    ListEmptyComponent={ListEmptyComponent}
-                    renderItem={renderItem}
-                    contentContainerStyle={styles.contentContainerStyle}
-                />
-           </Container>
+            {
+                loading ? <Container flex={1} borderTopWidth={0.5} borderColor={AppColors.grayBorder} paddingTop={1} verticalAlignment='center' horizontalAlignment='center'>
+                    <ActivityIndicator size={Width(8)} color={AppColors.red} />
+                </Container> : <Container flex={1} borderTopWidth={0.5} borderColor={AppColors.grayBorder} paddingTop={1}>
+                    <FlatList 
+                        //data={articles && Array.isArray(articles) ? articles : []}
+                        data={data}
+                        keyExtractor={(item,i)=>i.toString()}
+                        ListEmptyComponent={ListEmptyComponent}
+                        renderItem={renderItem}
+                        contentContainerStyle={styles.contentContainerStyle}
+                    />
+                </Container>
+            }
+           
         </ScreenWrapper>
     )
 }

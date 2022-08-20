@@ -32,7 +32,8 @@ export default function Details({navigation,route} : DetailsProps){
                 <Container width={95} alignSelf='center'>
                     <H1 marginTop={2} marginBottom={2} fontSize={5}>{article?.title}</H1>
                     <Container direction='row' horizontalAlignment='space-between' verticalAlignment='center'>
-                        <Container direction='row' verticalAlignment='center' width={42}
+                        <Container direction='row' 
+                            verticalAlignment='center' width={42}
                             horizontalAlignment='space-between'
                         >
                             <Container style={styles.avatar} />

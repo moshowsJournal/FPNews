@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const endPoint = "https://free-news.p.rapidapi.com/v1/search"
+const endPoint = "https://free-news.p.rapidapi.com/v1/search?q=Elon Musk&lang=en"
 
 
 
-export const getAPIs = async (path : string) => {
+export const getAPIs = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${endPoint}${path}`, {
+        .get(`${endPoint}`, {
           headers: {
             'X-RapidAPI-Key': '8bfb14ec65mshb42c0653cd552b2p182397jsn8ad77dddcb61',
             'X-RapidAPI-Host': 'free-news.p.rapidapi.com'

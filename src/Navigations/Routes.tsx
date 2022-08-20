@@ -1,15 +1,22 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from './AuthNavigation';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Splash from '../screens/Auth/Splash';
 import { useSelector } from 'react-redux';
 import DrawerNavigation from './DrawerNavigation';
 
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors
+  }
+}
+
 const Routes = () => {
   const route = useSelector((state : any)=>state)
     return(
-        <PaperProvider>
+        <PaperProvider theme={theme}>
           <NavigationContainer>
             {
               route.name === "Splash" ? <Splash /> : 

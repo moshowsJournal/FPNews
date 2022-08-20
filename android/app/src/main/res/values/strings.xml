@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FPNews</string>
+     <string moduleConfig="true" name="CodePushDeploymentKey">n_9oNcLoXHpIVi5K1JYow5YGrroxA9k5ZFY_B</string>
 </resources>

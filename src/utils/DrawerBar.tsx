@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, ScrollView, StyleSheet } from 'react-native';
 import AppColors from './colors';
 import { Container, H1, P } from './components';
@@ -8,6 +8,9 @@ import TouchableWrapper from './TouchableWrapper';
 import Ionicons from "react-native-vector-icons/Ionicons"
 import { useDispatch } from 'react-redux';
 import { changeRoute } from '../store/routeReducer';
+import { getData } from './functions';
+import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface DrawerBarProps{
     navigation : any
@@ -15,10 +18,26 @@ interface DrawerBarProps{
 
 export default function DrawerBar({navigation} : DrawerBarProps){
     const dispatch = useDispatch()
-    const signOut = () => {
+    const [user,setUser] = React.useState({
+        full_name : ""
+    })
+    const signOut = async () => {
         navigation.closeDrawer()
+        await AsyncStorage.removeItem('@user')
+        auth().signOut()
         dispatch(changeRoute("Auth"))
     }
+    const getUserData = async () => {
+        try{
+           let data = await getData("user")
+           setUser(data)
+        }catch(err){
+
+        }
+    }
+    useEffect(()=>{
+        getUserData()
+    },[])
     return(
         <Container verticalAlignment='space-between' flex={1} paddingVertical={5}>
             <Container>
@@ -26,7 +45,7 @@ export default function DrawerBar({navigation} : DrawerBarProps){
                     style={styles.avatar}
                     alignSelf='center'
                 />
-                <H1 textAlign='center' marginTop={2} numberOfLines={1}>Hello, Moshood Oseni</H1>
+                <H1 textAlign='center' marginTop={2} numberOfLines={1}>Hello, {user?.full_name}</H1>
             </Container>
             <TouchableWrapper isText onPress={signOut} width={70} style={styles.button}>
                 <Container direction='row' verticalAlignment='center'>
