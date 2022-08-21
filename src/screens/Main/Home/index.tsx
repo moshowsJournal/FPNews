@@ -94,11 +94,13 @@ export default function Home({navigation} : HomeProps){
                         <Ionicons name="star" color={AppColors.warning} size={Width(6)} />
                         <H1 color={AppColors.black}>599</H1>
                     </Container>
-                    <Container position='absolute'
-                        style={styles.notification}
-                    >
-                        <H1 color={AppColors.white} textAlign='center'>{count}</H1>
-                    </Container>
+                    {
+                        count ? <Container position='absolute'
+                            style={styles.notification}
+                        >
+                            <H1 color={AppColors.white} textAlign='center'>{count}</H1>
+                        </Container> : null
+                    }
                     <TouchableWrapper size={6} onPress={()=>null}>
                         <Ionicons name="notifications" color={primaryColor} size={Width(6)}/>
                     </TouchableWrapper>

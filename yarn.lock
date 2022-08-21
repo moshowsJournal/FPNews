@@ -1378,6 +1378,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-15.3.0.tgz#5aef7a09df172ea9da918cfb5ea1a4fdc9cd36df"
   integrity sha512-jGi88b/Iu/OeyzfsYsBoHKRXwAiSWcqF1uvqFlEXs2PqcqJxTOQGhVnCFxcZPzZs4lvLPEjq84KGDZK0jJL3Xg==
 
+"@react-native-firebase/app-distribution@^15.3.0":
+  version "15.3.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app-distribution/-/app-distribution-15.3.0.tgz#221098d092d3d785bcd3bc420bb2cfe02e655c30"
+  integrity sha512-ojfYHrCdLWY9ForST8Q7rhaNFFuSkr/P3i9xrHX7JfoH8kQJBFGIY5mLTWayu9XFN7tjfih0QuSiZgeRfmAcWA==
+
 "@react-native-firebase/app@^15.3.0":
   version "15.3.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-15.3.0.tgz#589bbde3a7edf7663182fb83cf86630d871dbfcf"
