@@ -31,149 +31,8 @@ export default function Home({navigation} : HomeProps){
         }
     }
 
-    const data = [
-        {
-            "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
-            "author":"Economic Times",
-            "published_date":"2022-08-17 00:21:01",
-            "published_date_precision":"full",
-            "link":"https://economictimes.indiatimes.com/news/newsblogs/latest-daily-news-and-updates-august-17/liveblog/93603807.cms",
-            "clean_url":"indiatimes.com",
-            "summary":`Tesla Chief Executive Officer Elon Musk said on Tuesday he was buying football club Manchester United Plc. "I'm buying Manchester United ur welcome" Musk tweeted. It was unclear if Musk was serious about the deal.`,
-            "rights":"Copyright:(C)2022 Bennett Coleman & Co. Ltd, http://info.indiatimes.com/terms/tou.html",
-            "rank":296,
-            "topic":"economics",
-            "country":"IN",
-            "language":"en",
-            "authors":"Economic Times",
-            "media":"https://img.etimg.com/thumb/msid-93603807,width-600,resizemode-4,imglength-7124/news/newsblogs/latest-daily-news-and-updates-august-17.jpg",
-            "is_opinion":false,
-            "twitter_account":"@EconomicTimes",
-            "_score":25.828161,
-            "_id":"c32c16cdbfa7d797fdb73eefe0776796"
-            },
-            {
-                "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
-                "author":"Economic Times",
-                "published_date":"2022-08-17 00:21:01",
-                "published_date_precision":"full",
-                "link":"https://economictimes.indiatimes.com/news/newsblogs/latest-daily-news-and-updates-august-17/liveblog/93603807.cms",
-                "clean_url":"indiatimes.com",
-                "summary":`Tesla Chief Executive Officer Elon Musk said on Tuesday he was buying football club Manchester United Plc. "I'm buying Manchester United ur welcome" Musk tweeted. It was unclear if Musk was serious about the deal.`,
-                "rights":"Copyright:(C)2022 Bennett Coleman & Co. Ltd, http://info.indiatimes.com/terms/tou.html",
-                "rank":296,
-                "topic":"economics",
-                "country":"IN",
-                "language":"en",
-                "authors":"Economic Times",
-                "media":"https://img.etimg.com/thumb/msid-93603807,width-600,resizemode-4,imglength-7124/news/newsblogs/latest-daily-news-and-updates-august-17.jpg",
-                "is_opinion":false,
-                "twitter_account":"@EconomicTimes",
-                "_score":25.828161,
-                "_id":"c32c16cdbfa7d797fdb73eefe0776796"
-                },
-                {
-                    "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
-                    "author":"Economic Times",
-                    "published_date":"2022-08-17 00:21:01",
-                    "published_date_precision":"full",
-                    "link":"https://economictimes.indiatimes.com/news/newsblogs/latest-daily-news-and-updates-august-17/liveblog/93603807.cms",
-                    "clean_url":"indiatimes.com",
-                    "summary":`Tesla Chief Executive Officer Elon Musk said on Tuesday he was buying football club Manchester United Plc. "I'm buying Manchester United ur welcome" Musk tweeted. It was unclear if Musk was serious about the deal.`,
-                    "rights":"Copyright:(C)2022 Bennett Coleman & Co. Ltd, http://info.indiatimes.com/terms/tou.html",
-                    "rank":296,
-                    "topic":"economics",
-                    "country":"IN",
-                    "language":"en",
-                    "authors":"Economic Times",
-                    "media":"https://img.etimg.com/thumb/msid-93603807,width-600,resizemode-4,imglength-7124/news/newsblogs/latest-daily-news-and-updates-august-17.jpg",
-                    "is_opinion":false,
-                    "twitter_account":"@EconomicTimes",
-                    "_score":25.828161,
-                    "_id":"c32c16cdbfa7d797fdb73eefe0776796"
-                    },
-                    {
-                        "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
-                        "author":"Economic Times",
-                        "published_date":"2022-08-17 00:21:01",
-                        "published_date_precision":"full",
-                        "link":"https://economictimes.indiatimes.com/news/newsblogs/latest-daily-news-and-updates-august-17/liveblog/93603807.cms",
-                        "clean_url":"indiatimes.com",
-                        "summary":`Tesla Chief Executive Officer Elon Musk said on Tuesday he was buying football club Manchester United Plc. "I'm buying Manchester United ur welcome" Musk tweeted. It was unclear if Musk was serious about the deal.`,
-                        "rights":"Copyright:(C)2022 Bennett Coleman & Co. Ltd, http://info.indiatimes.com/terms/tou.html",
-                        "rank":296,
-                        "topic":"economics",
-                        "country":"IN",
-                        "language":"en",
-                        "authors":"Economic Times",
-                        "media":"https://img.etimg.com/thumb/msid-93603807,width-600,resizemode-4,imglength-7124/news/newsblogs/latest-daily-news-and-updates-august-17.jpg",
-                        "is_opinion":false,
-                        "twitter_account":"@EconomicTimes",
-                        "_score":25.828161,
-                        "_id":"c32c16cdbfa7d797fdb73eefe0776796"
-                        },
-                        {
-                            "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
-                            "author":"Economic Times",
-                            "published_date":"2022-08-17 00:21:01",
-                            "published_date_precision":"full",
-                            "link":"https://economictimes.indiatimes.com/news/newsblogs/latest-daily-news-and-updates-august-17/liveblog/93603807.cms",
-                            "clean_url":"indiatimes.com",
-                            "summary":`Tesla Chief Executive Officer Elon Musk said on Tuesday he was buying football club Manchester United Plc. "I'm buying Manchester United ur welcome" Musk tweeted. It was unclear if Musk was serious about the deal.`,
-                            "rights":"Copyright:(C)2022 Bennett Coleman & Co. Ltd, http://info.indiatimes.com/terms/tou.html",
-                            "rank":296,
-                            "topic":"economics",
-                            "country":"IN",
-                            "language":"en",
-                            "authors":"Economic Times",
-                            "media":"https://img.etimg.com/thumb/msid-93603807,width-600,resizemode-4,imglength-7124/news/newsblogs/latest-daily-news-and-updates-august-17.jpg",
-                            "is_opinion":false,
-                            "twitter_account":"@EconomicTimes",
-                            "_score":25.828161,
-                            "_id":"c32c16cdbfa7d797fdb73eefe0776796"
-                            },
-                            {
-                                "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
-                                "author":"Economic Times",
-                                "published_date":"2022-08-17 00:21:01",
-                                "published_date_precision":"full",
-                                "link":"https://economictimes.indiatimes.com/news/newsblogs/latest-daily-news-and-updates-august-17/liveblog/93603807.cms",
-                                "clean_url":"indiatimes.com",
-                                "summary":`Tesla Chief Executive Officer Elon Musk said on Tuesday he was buying football club Manchester United Plc. "I'm buying Manchester United ur welcome" Musk tweeted. It was unclear if Musk was serious about the deal.`,
-                                "rights":"Copyright:(C)2022 Bennett Coleman & Co. Ltd, http://info.indiatimes.com/terms/tou.html",
-                                "rank":296,
-                                "topic":"economics",
-                                "country":"IN",
-                                "language":"en",
-                                "authors":"Economic Times",
-                                "media":"https://img.etimg.com/thumb/msid-93603807,width-600,resizemode-4,imglength-7124/news/newsblogs/latest-daily-news-and-updates-august-17.jpg",
-                                "is_opinion":false,
-                                "twitter_account":"@EconomicTimes",
-                                "_score":25.828161,
-                                "_id":"c32c16cdbfa7d797fdb73eefe0776796"
-                                },{
-                                    "title":"Latest Live News Updates: Elon Musk says he will buy Manchester United Football Club",
-                                    "author":"Economic Times",
-                                    "published_date":"2022-08-17 00:21:01",
-                                    "published_date_precision":"full",
-                                    "link":"https://economictimes.indiatimes.com/news/newsblogs/latest-daily-news-and-updates-august-17/liveblog/93603807.cms",
-                                    "clean_url":"indiatimes.com",
-                                    "summary":`Tesla Chief Executive Officer Elon Musk said on Tuesday he was buying football club Manchester United Plc. "I'm buying Manchester United ur welcome" Musk tweeted. It was unclear if Musk was serious about the deal.`,
-                                    "rights":"Copyright:(C)2022 Bennett Coleman & Co. Ltd, http://info.indiatimes.com/terms/tou.html",
-                                    "rank":296,
-                                    "topic":"economics",
-                                    "country":"IN",
-                                    "language":"en",
-                                    "authors":"Economic Times",
-                                    "media":"https://img.etimg.com/thumb/msid-93603807,width-600,resizemode-4,imglength-7124/news/newsblogs/latest-daily-news-and-updates-august-17.jpg",
-                                    "is_opinion":false,
-                                    "twitter_account":"@EconomicTimes",
-                                    "_score":25.828161,
-                                    "_id":"c32c16cdbfa7d797fdb73eefe0776796"
-                                    }
-    ]
     useEffect(()=>{
-       // getArticles()
+       getArticles()
     },[])
 
     const ListEmptyComponent = () => {
@@ -262,8 +121,7 @@ export default function Home({navigation} : HomeProps){
                     <ActivityIndicator size={Width(8)} color={primaryColor} />
                 </Container> : <Container flex={1} borderTopWidth={0.5} borderColor={AppColors.grayBorder} paddingTop={1}>
                     <FlatList 
-                        //data={articles && Array.isArray(articles) ? articles : []}
-                        data={data}
+                        data={articles && Array.isArray(articles) ? articles : []}
                         keyExtractor={(item,i)=>i.toString()}
                         ListEmptyComponent={ListEmptyComponent}
                         renderItem={renderItem}
