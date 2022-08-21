@@ -83,7 +83,6 @@ export default function Login({navigation} : LoginProps){
             await storeData("user",userRef._data)
             dispatch(changeRoute("Main"))
         }catch(err){
-            console.log("ERROR",err)
             setLoading(false)
             ToastError("Invalid email address or password")
         }

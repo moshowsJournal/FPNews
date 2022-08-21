@@ -60,7 +60,6 @@ export default function Register({navigation} : RegisterProps){
             await storeData("user",userData)
             dispatch(changeRoute("Main"))
         }catch(err : any){
-            console.log("ERROR",err)
             if(JSON.stringify(err).includes('Sign in action cancelled')) return
             setLoading(false)
             GoogleSignin.signOut()

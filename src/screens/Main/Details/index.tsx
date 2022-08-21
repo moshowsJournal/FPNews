@@ -9,6 +9,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Image } from 'react-native';
 import styles from './styles';
 import moment from 'moment';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 interface DetailsProps{
     navigation : any,
@@ -20,7 +21,7 @@ export default function Details({navigation,route} : DetailsProps){
         <ScreenWrapper>
             <Container direction='row' verticalAlignment='center' horizontalAlignment='space-between'>
                 <BackHandler />
-                <TouchableWrapper onPress={()=>null} size={8}>
+                <TouchableWrapper onPress={()=>crashlytics().crash()} size={8}>
                     <Ionicons name="share" color={AppColors.red} size={Width(6)}/>
                 </TouchableWrapper>
             </Container>
