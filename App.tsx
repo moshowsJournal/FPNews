@@ -9,7 +9,6 @@ import FlashMessage from "react-native-flash-message";
 import firebaseConfig from './src/utils/firebase';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-
 const App = () => {
 
   useEffect(()=>{

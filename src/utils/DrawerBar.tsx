@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import perf from '@react-native-firebase/perf';
+import { resetCount } from '../store/notificationSplice';
 
 interface DrawerBarProps{
     navigation : any
@@ -29,6 +30,7 @@ export default function DrawerBar({navigation} : DrawerBarProps){
         await AsyncStorage.removeItem('@user')
         auth().signOut()
         GoogleSignin.signOut()
+        dispatch(resetCount({count : 0, data : {}}))
         await trace.stop();
         dispatch(changeRoute("Auth"))
     }

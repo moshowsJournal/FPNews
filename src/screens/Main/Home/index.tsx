@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Container, H1, P } from '../../../utils/components';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AppColors from '../../../utils/colors';
-import { Width } from '../../../utils/dimensions';
+import { Height, Width } from '../../../utils/dimensions';
 import TouchableWrapper from '../../../utils/TouchableWrapper';
 import ScreenWrapper from '../../../utils/ScreenWrapper';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -17,6 +17,7 @@ interface HomeProps{
 }
 export default function Home({navigation} : HomeProps){
     const primaryColor = useSelector((state : any)=>state.appThemeReducer.primaryColor)
+    const count = useSelector((state : any)=>state.noticationReducer.count)
     const tabs = ["Popular","All","Politics","Technology","Health","Science"]
     const [loading,setLoading] = React.useState(false)
     const [articles,setArticles] = React.useState([])
@@ -233,6 +234,11 @@ export default function Home({navigation} : HomeProps){
                     >
                         <Ionicons name="star" color={AppColors.warning} size={Width(6)} />
                         <H1 color={AppColors.black}>599</H1>
+                    </Container>
+                    <Container position='absolute'
+                        style={styles.notification}
+                    >
+                        <H1 color={AppColors.white} textAlign='center'>{count}</H1>
                     </Container>
                     <TouchableWrapper size={6} onPress={()=>null}>
                         <Ionicons name="notifications" color={primaryColor} size={Width(6)}/>
