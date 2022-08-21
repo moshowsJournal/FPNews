@@ -12,12 +12,13 @@ import AppColors from '../../../utils/colors'
 import { Width } from '../../../utils/dimensions'
 //import Icon from 'react-native-ionicons'
 import Ionicons from "react-native-vector-icons/Ionicons"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { changeRoute } from '../../../store/routeReducer'
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { storeData, ToastError, validateEmail } from '../../../utils/functions'
+import { logUserActivities, storeData, ToastError, validateEmail } from '../../../utils/functions'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import perf from '@react-native-firebase/perf';
 
 
 
@@ -26,6 +27,7 @@ interface LoginProps{
 }
 
 export default function Login({navigation} : LoginProps){
+    const primaryColor = useSelector((state : any)=>state.appThemeReducer.primaryColor)
     const dispatch = useDispatch()
     const [data,setData] = React.useState({
         email : "",
@@ -41,6 +43,7 @@ export default function Login({navigation} : LoginProps){
 
     const onGoogleButtonPress = async () => {
         try{
+            const trace = await perf().startTrace('LOGIN_TRACE');
             const { idToken } = await GoogleSignin.signIn();
            const googleCredential = auth.GoogleAuthProvider.credential(idToken);
             setLoading(true)
@@ -53,6 +56,8 @@ export default function Login({navigation} : LoginProps){
             }
             setLoading(false)
             await storeData("user",userRef._data)
+            await trace.stop();
+            logUserActivities({event_type : "LOGIN",method : "Google"})
             dispatch(changeRoute("Main"))
         }catch(err : any){
             if(JSON.stringify(err).includes('Sign in action cancelled')) return
@@ -81,6 +86,7 @@ export default function Login({navigation} : LoginProps){
             const userRef = await firestore().collection('Users').doc(res.user.uid).get()
             setLoading(false)
             await storeData("user",userRef._data)
+            logUserActivities({event_type : "LOGIN",method : "Email"})
             dispatch(changeRoute("Main"))
         }catch(err){
             setLoading(false)
@@ -92,7 +98,7 @@ export default function Login({navigation} : LoginProps){
             <Container width={90} horizontalAlignment='center' alignSelf='center'>
                 <Container horizontalAlignment='center' verticalAlignment='center'>
                     <Image 
-                        source={{uri : Images.logo}}
+                         source={{uri : primaryColor === AppColors.defaultSkin ? Images.logo : Images.logo1}}
                         style={styles.logo}
                     />
                 </Container>
@@ -115,30 +121,30 @@ export default function Login({navigation} : LoginProps){
                     />
                 </Container>
                 <TouchableWrapper onPress={()=>null} isText width={40} style={styles.forgot}>
-                    <H1 color={AppColors.red} bold={600}>Forgot Password?</H1>
+                    <H1 color={primaryColor} bold={600}>Forgot Password?</H1>
                 </TouchableWrapper>
-                <Button loading={loading} text={"Sign In"} onPress={submitHanlder} />
+                <Button loading={loading} text={"Sign In"} onPress={submitHanlder} primaryColor={primaryColor} />
                 <Container marginTop={4}>
                     <Container direction='row' verticalAlignment='center' horizontalAlignment='space-between'
                         width={70}
                     >
-                        <Container width={28} height={0.2} backgroundColor={AppColors.red} />
-                            <H1 fontSize={4} color={AppColors.red}>OR</H1>
-                        <Container width={28} height={0.2} backgroundColor={AppColors.red} />
+                        <Container width={28} height={0.2} backgroundColor={primaryColor} />
+                            <H1 fontSize={4} color={primaryColor}>OR</H1>
+                        <Container width={28} height={0.2} backgroundColor={primaryColor} />
                     </Container>
-                    <TouchableWrapper onPress={onGoogleButtonPress} style={styles.social} isText>
+                    <TouchableWrapper disabled={loading} onPress={onGoogleButtonPress} style={styles.social} isText>
                         <Container direction='row' verticalAlignment='center'
                             horizontalAlignment='center'
                         >
                             <Ionicons name="logo-google" size={Width(6)} color='red' />
-                            <H1 marginLeft={2} color={AppColors.red}>Sign in with Google</H1>
+                            <H1 marginLeft={2} color={primaryColor}>Sign in with Google</H1>
                         </Container>
                     </TouchableWrapper>
                 </Container>
                 <TouchableWrapper onPress={registerNow} isText style={styles.register}>
                     <Container direction='row' verticalAlignment='center'>
                         <P>Do not have an account?</P>
-                        <H1 color={AppColors.red} marginLeft={1}>Register</H1>
+                        <H1 color={primaryColor} marginLeft={1}>Register</H1>
                     </Container>
                 </TouchableWrapper>
             </Container>

@@ -10,6 +10,7 @@ import { Image } from 'react-native';
 import styles from './styles';
 import moment from 'moment';
 import crashlytics from '@react-native-firebase/crashlytics';
+import { useSelector } from 'react-redux';
 
 interface DetailsProps{
     navigation : any,
@@ -17,12 +18,13 @@ interface DetailsProps{
 }
 export default function Details({navigation,route} : DetailsProps){
     const {article} = route.params;
+    const primaryColor = useSelector((state : any)=>state.appThemeReducer.primaryColor)
     return(
         <ScreenWrapper>
             <Container direction='row' verticalAlignment='center' horizontalAlignment='space-between'>
                 <BackHandler />
                 <TouchableWrapper onPress={()=>crashlytics().crash()} size={8}>
-                    <Ionicons name="share" color={AppColors.red} size={Width(6)}/>
+                    <Ionicons name="share" color={primaryColor} size={Width(6)}/>
                 </TouchableWrapper>
             </Container>
             <ScrollView>
@@ -46,19 +48,19 @@ export default function Details({navigation,route} : DetailsProps){
                         <Container direction='row' horizontalAlignment='space-between'>
                             <TouchableWrapper isText onPress={()=>null} width={30}>
                                 <Container direction='row' verticalAlignment='center'>
-                                    <Ionicons name="chatbox" size={Width(5)} color={AppColors.red}/>
+                                    <Ionicons name="chatbox" size={Width(5)} color={primaryColor}/>
                                     <P marginLeft={1}>8 Comments</P>
                                 </Container>
                             </TouchableWrapper>
                             <TouchableWrapper isText onPress={()=>null}>
                                 <Container direction='row' verticalAlignment='center'>
-                                    <Ionicons name="heart" size={Width(5)} color={AppColors.red}/>
+                                    <Ionicons name="heart" size={Width(5)} color={primaryColor}/>
                                     <P marginLeft={1}>25 likes</P>
                                 </Container>
                             </TouchableWrapper>
                             <TouchableWrapper isText onPress={()=>null}>
                                 <Container direction='row' verticalAlignment='center'>
-                                    <Ionicons name="share-social" size={Width(5)} color={AppColors.red}/>
+                                    <Ionicons name="share-social" size={Width(5)} color={primaryColor}/>
                                 </Container>
                             </TouchableWrapper>
                         </Container>

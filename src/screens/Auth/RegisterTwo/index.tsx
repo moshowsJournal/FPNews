@@ -6,16 +6,13 @@ import { BackHandler, Container, H1, P } from '../../../utils/components'
 import Images from '../../../utils/images'
 import Input from '../../../utils/Input'
 import ScreenWrapper from '../../../utils/ScreenWrapper'
-import TouchableWrapper from '../../../utils/TouchableWrapper'
 import styles from './styles';
-import AppColors from '../../../utils/colors'
-import { Width } from '../../../utils/dimensions'
-import Ionicons from "react-native-vector-icons/Ionicons"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { changeRoute } from '../../../store/routeReducer'
-import { storeData, ToastError, ToastSuccess } from '../../../utils/functions'
+import { logUserActivities, storeData, ToastError, ToastSuccess } from '../../../utils/functions'
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import AppColors from '../../../utils/colors'
 
 
 
@@ -26,6 +23,7 @@ interface RegisterTwoProps{
 
 export default function RegisterTwo({navigation,route} : RegisterTwoProps){
     const dispatch = useDispatch()
+    const primaryColor = useSelector((state : any)=>state.appThemeReducer.primaryColor)
     const {email_address,phone_number,full_name} = route.params
     const[loading,setLoading] = React.useState(false)
     const [show,setShow] = React.useState(false)
@@ -54,6 +52,7 @@ export default function RegisterTwo({navigation,route} : RegisterTwoProps){
             await firestore().collection('Users').doc(res.user.uid).set(userData)
             setLoading(false)
             ToastSuccess("Your account has been created")
+            logUserActivities({event_type : "SIGNUP",method : "Email"})
             await storeData("user",userData)
             dispatch(changeRoute("Main"))
        }catch(err : any){
@@ -74,7 +73,7 @@ export default function RegisterTwo({navigation,route} : RegisterTwoProps){
             <Container width={90} horizontalAlignment='center' alignSelf='center'>
                 <Container horizontalAlignment='center' verticalAlignment='center'>
                     <Image 
-                        source={{uri : Images.logo}}
+                         source={{uri : primaryColor === AppColors.defaultSkin ? Images.logo : Images.logo1}}
                         style={styles.logo}
                     />
                 </Container>
@@ -99,7 +98,7 @@ export default function RegisterTwo({navigation,route} : RegisterTwoProps){
                         secureTextEntry={!show}
                     />
                 </Container>
-                <Button loading={loading} text={"Continue"} onPress={submitHandler}/>
+                <Button loading={loading} text={"Continue"} onPress={submitHandler} primaryColor={primaryColor} />
             </Container>
         </ScreenWrapper>
     )

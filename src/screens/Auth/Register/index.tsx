@@ -14,10 +14,10 @@ import { Width } from '../../../utils/dimensions'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import auth from '@react-native-firebase/auth';
-import { storeData, ToastError, ToastSuccess, validateEmail } from '../../../utils/functions'
+import { logUserActivities, storeData, ToastError, ToastSuccess, validateEmail } from '../../../utils/functions'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firestore from '@react-native-firebase/firestore'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { changeRoute } from '../../../store/routeReducer'
 
 
@@ -27,6 +27,7 @@ interface RegisterProps{
 
 export default function Register({navigation} : RegisterProps){
     const dispatch = useDispatch()
+    const primaryColor = useSelector((state : any)=>state.appThemeReducer.primaryColor)
     const [data,setData] = React.useState({
         full_name : "",
         email_address : "",
@@ -57,6 +58,7 @@ export default function Register({navigation} : RegisterProps){
             setLoading(false)
             ToastSuccess("Your account has been created")
             setLoading(false)
+            logUserActivities({event_type : "SIGNUP",method : "Google"})
             await storeData("user",userData)
             dispatch(changeRoute("Main"))
         }catch(err : any){
@@ -97,7 +99,7 @@ export default function Register({navigation} : RegisterProps){
                 <Container width={90} horizontalAlignment='center' alignSelf='center'>
                     <Container horizontalAlignment='center' verticalAlignment='center'>
                         <Image 
-                            source={{uri : Images.logo}}
+                             source={{uri : primaryColor === AppColors.defaultSkin ? Images.logo : Images.logo1}}
                             style={styles.logo}
                         />
                     </Container>
@@ -122,30 +124,30 @@ export default function Register({navigation} : RegisterProps){
                         />
                     </Container>
                     <TouchableWrapper onPress={()=>navigation.goBack()} isText width={40} style={styles.forgot}>
-                        <H1 color={AppColors.red} bold={600}>Go back to sign in?</H1>
+                        <H1 color={primaryColor} bold={600}>Go back to sign in?</H1>
                     </TouchableWrapper>
-                    <Button loading={loading} text={"Register"} onPress={submitHandler}/>
+                    <Button loading={loading} text={"Register"} onPress={submitHandler} primaryColor={primaryColor} />
                     <Container marginTop={4}>
                         <Container direction='row' verticalAlignment='center' horizontalAlignment='space-between'
                             width={70}
                         >
-                            <Container width={28} height={0.2} backgroundColor={AppColors.red} />
-                            <H1 fontSize={4} color={AppColors.red}>OR</H1>
-                            <Container width={28} height={0.2} backgroundColor={AppColors.red} />
+                            <Container width={28} height={0.2} backgroundColor={primaryColor} />
+                            <H1 fontSize={4} color={primaryColor}>OR</H1>
+                            <Container width={28} height={0.2} backgroundColor={primaryColor} />
                         </Container>
-                        <TouchableWrapper onPress={onGoogleButtonPress} style={styles.social} isText>
+                        <TouchableWrapper disabled={loading} onPress={onGoogleButtonPress} style={styles.social} isText>
                             <Container direction='row' verticalAlignment='center'
                                 horizontalAlignment='center'
                             >
                                 <Ionicons name="logo-google" size={Width(6)} color='red' />
-                                <H1 marginLeft={2} color={AppColors.red}>Sign up with Google</H1>
+                                <H1 marginLeft={2} color={primaryColor}>Sign up with Google</H1>
                             </Container>
                         </TouchableWrapper>
                     </Container>
                     <TouchableWrapper onPress={()=>null} isText style={styles.register}>
                         <Container verticalAlignment='center' horizontalAlignment='center'>
                             <P>By signing up, you are agreeing to our</P>
-                            <H1 color={AppColors.red} marginLeft={1}>Terms and Conditions</H1>
+                            <H1 color={primaryColor} marginLeft={1}>Terms and Conditions</H1>
                         </Container>
                     </TouchableWrapper>
                 </Container>

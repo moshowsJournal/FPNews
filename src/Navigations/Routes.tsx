@@ -14,7 +14,7 @@ const theme = {
 }
 
 const Routes = () => {
-  const route = useSelector((state : any)=>state)
+  const route = useSelector((state : any)=>state.routeReducer)
     return(
         <PaperProvider theme={theme}>
           <NavigationContainer>

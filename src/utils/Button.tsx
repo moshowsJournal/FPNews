@@ -9,16 +9,18 @@ import TouchableWrapper from "./TouchableWrapper";
 interface ButtonProps {
     text : string,
     onPress : () => void,
-    loading? : boolean
+    loading? : boolean,
+    primaryColor? : string
 }
 
 export default function Button({
     text,
     onPress,
-    loading
+    loading,
+    primaryColor
 } : ButtonProps){
     return(
-        <TouchableWrapper disabled={loading} onPress={onPress} isText style={styles.button} rippleColor={AppColors.white}>
+        <TouchableWrapper disabled={loading} onPress={onPress} isText style={[styles.button,{backgroundColor : primaryColor}]} rippleColor={AppColors.white}>
             {!loading ? <H1 color={AppColors.white} fontSize={5}>{text}</H1> : 
                 <ActivityIndicator size={Width(7)} color={AppColors.white} />
             }
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
         width : Width(40),
         height : Height(6),
         textAlignVertical : "center",
-        backgroundColor : AppColors.red,
+        backgroundColor : AppColors.defaultSkin,
         borderRadius : Width(8),
         marginTop : Height(2)
     }

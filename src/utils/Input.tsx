@@ -1,6 +1,7 @@
 import { DarkTheme } from "@react-navigation/native";
 import React from "react";
 import { TextInput,DefaultTheme } from "react-native-paper";
+import { useSelector } from "react-redux";
 import AppColors from "./colors";
 import { Height, Width } from "./dimensions";
 import Font_Family from "./fontFamily";
@@ -23,6 +24,7 @@ interface InputProps{
 }
 
 const Input = (props : InputProps) => {
+    const primaryColor = useSelector((state : any)=>state.appThemeReducer.primaryColor)
     return(
         <TextInput
             label={props.label}
@@ -42,7 +44,7 @@ const Input = (props : InputProps) => {
             theme={
                 {
                     colors : {
-                        primary: AppColors.red
+                        primary: primaryColor
                     },
                     fonts: {
                       regular: {

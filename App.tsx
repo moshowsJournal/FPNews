@@ -11,7 +11,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 
 const App = () => {
-  
+
   useEffect(()=>{
     GoogleSignin.configure({
       webClientId: '631795731887-qea5n2hakmkcovth546ga0ccaje5m1g7.apps.googleusercontent.com',

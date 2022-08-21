@@ -12,6 +12,7 @@ import { getData } from './functions';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import perf from '@react-native-firebase/perf';
 
 interface DrawerBarProps{
     navigation : any
@@ -23,10 +24,12 @@ export default function DrawerBar({navigation} : DrawerBarProps){
         full_name : ""
     })
     const signOut = async () => {
+        const trace = await perf().startTrace('SIGNOUT_TRACE');
         navigation.closeDrawer()
         await AsyncStorage.removeItem('@user')
         auth().signOut()
         GoogleSignin.signOut()
+        await trace.stop();
         dispatch(changeRoute("Auth"))
     }
     const getUserData = async () => {

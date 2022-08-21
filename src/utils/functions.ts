@@ -8,6 +8,8 @@ import Font_Family from './fontFamily';
 import {H1} from './components'
 import { Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import analytics from '@react-native-firebase/analytics';
+import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 
 export const ToastError = (message  : string) => {
     return showMessage({
@@ -16,7 +18,7 @@ export const ToastError = (message  : string) => {
       position: 'top',
       floating: true,
       animated: true,
-      backgroundColor: AppColors.red,
+      backgroundColor: AppColors.defaultSkin,
       color: AppColors.white,
       titleStyle: {fontSize: Width(4), fontFamily: Font_Family[600]}
     });
@@ -59,5 +61,31 @@ export const getData = async (key : string) => {
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch(e) {
     return false
+  }
+}
+
+export const logUserActivities = (data  : any) => {
+  if(data?.event_type === "LOGIN" && data?.method){
+    let load = {
+      method : data.method
+    }
+    return analytics().logLogin(load) 
+  }
+  if(data?.event_type === "SIGNUP" && data?.method){
+    let load = {
+      method : data.method
+    }
+    return analytics().logSignUp(load) 
+  }
+  if(data?.event_type === "DETAILS" && data?.content_type && data?.id){
+    let load = {content_type : data.content_type,item_id : data.id}
+    return analytics().logSelectContent(load)
+  }
+  if(data?.event_type === "SCREEN_CHANGE"){
+    let load = {content_type : data.content_type,item_id : data.id}
+    return analytics().logScreenView(load)
+  }
+  if(data?.event_type === "ON_OPEN"){
+    return analytics().logAppOpen()
   }
 }

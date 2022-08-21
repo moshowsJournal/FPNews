@@ -1,5 +1,7 @@
+import RemoteConfigService from "./remoteConfigService";
+
 const AppColors = {
-    primary: '#0000B5',
+    primary: "#0000B5",
     secondary: '#DAEEFF',
     info: '#2F80ED',
     success: '#27AE60',
@@ -31,7 +33,7 @@ const AppColors = {
     green : "#38EA82",
     whiteBase : "#E5E5E5",
     grayChart : "#EDECED",
-    red : "red"
+    defaultSkin : "red"
   }
 
 export default AppColors;
